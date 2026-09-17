@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Learning Progress</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#top"><span class="brand-mark">↗</span><span>grow<span class="brand-dot">.</span></span></a>
+      <nav class="nav-links" aria-label="Dashboard navigation">
+        <a class="active" href="#top">⌂ <span>Overview</span></a>
+        <a href="#dsa">⌘ <span>DSA progress</span></a>
+        <a href="#skills">✦ <span>Skills</span></a>
+        <a href="#history">☷ <span>Learning log</span></a>
+      </nav>
+      <div class="sidebar-foot"><span class="pulse"></span> Keep growing, one day at a time.</div>
+    </aside>
+
+    <main id="top">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PERSONAL WORKSPACE</p>
+          <h1>My Learning Progress</h1>
+        </div>
+        <button class="primary-btn" id="open-add"><span>+</span> Add learning progress</button>
+      </header>
+
+      <section class="focus-card" aria-labelledby="focus-title">
+        <div class="focus-copy"><p class="eyebrow">CURRENT FOCUS</p><h2 id="focus-title" data-focus>Queue</h2><p>Small, consistent steps turn learning into momentum.</p></div>
+        <div class="focus-meta"><div><span>DSA DAY</span><strong data-dsa-day>—</strong></div><div><span>LEETCODE</span><strong data-leetcode>0</strong><small>problems solved</small></div><div><span>LEARNING STREAK</span><strong data-streak>0</strong><small>days</small></div></div>
+        <div class="orb orb-one"></div><div class="orb orb-two"></div>
+      </section>
+
+      <section class="metrics" aria-label="Learning statistics">
+        <article class="metric-card main-metric"><div><p>OVERALL PROGRESS</p><strong data-overall>0%</strong><span>across your learning path</span></div><div class="ring" data-ring><span data-overall>0%</span></div></article>
+        <article class="metric-card"><div class="metric-icon lavender">✓</div><p>TOPICS COMPLETED</p><strong data-completed>0</strong><span data-total-topics>of 0 tracked topics</span></article>
+        <article class="metric-card"><div class="metric-icon amber">↗</div><p>IN PROGRESS</p><strong data-learning>0</strong><span>topics you are building</span></article>
+        <article class="metric-card"><div class="metric-icon mint">▣</div><p>PROJECTS</p><strong data-projects>0</strong><span>completed projects</span></article>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="panel progress-panel" id="dsa"><div class="panel-head"><div><p class="eyebrow">LEARNING ROADMAP</p><h2>DSA Progress</h2></div><button class="text-btn" data-preset="DSA">View all →</button></div><div class="category-summary"><div class="category-number"><strong data-dsa-percent>0%</strong><span>complete</span></div><div class="bar-track"><span data-dsa-bar></span></div><span class="category-caption" data-dsa-caption>0 / 0 topics complete</span></div><div class="topic-list" id="dsa-topics"></div></article>
+        <article class="panel activity-panel"><div class="panel-head"><div><p class="eyebrow">LAST 7 DAYS</p><h2>Study rhythm</h2></div><span class="week-total" data-week-hours>0h</span></div><div class="chart" id="week-chart" aria-label="Hours studied in the last seven days"></div><div class="chart-labels" id="chart-labels"></div><div class="chart-legend"><span><i></i> Hours studied</span><span data-week-note>Start your week strong</span></div></article>
+      </section>
+
+      <section class="dashboard-grid lower-grid" id="skills">
+        <article class="panel"><div class="panel-head"><div><p class="eyebrow">YOUR TOOLKIT</p><h2>Programming &amp; AI skills</h2></div><button class="text-btn" data-preset="Skills">Manage →</button></div><div class="skill-list" id="skill-list"></div></article>
+        <article class="panel next-panel"><div><p class="eyebrow">NEXT UP</p><h2>Keep your path clear</h2><p class="muted">The topics below are ready when you are.</p></div><div id="upcoming-list" class="upcoming-list"></div><button class="secondary-btn" id="quick-add">Log today’s learning <span>→</span></button></article>
+      </section>
+
+      <section class="panel history-panel" id="history"><div class="panel-head history-head"><div><p class="eyebrow">YOUR TIMELINE</p><h2>Learning history</h2></div><div class="history-actions"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Search progress" /></label><select id="category-filter"><option value="">All categories</option></select><select id="status-filter"><option value="">All statuses</option><option>Learning</option><option>Practiced</option><option>Completed</option></select></div></div><div class="history-list" id="history-list"></div><p class="empty-state" id="empty-state" hidden>No learning entries match these filters.</p></section>
+    </main>
+  </div>
+
+  <dialog id="progress-dialog"><form id="progress-form" method="dialog"><div class="modal-head"><div><p class="eyebrow" id="modal-kicker">NEW ENTRY</p><h2 id="modal-title">Add learning progress</h2></div><button type="button" class="close-btn" id="close-dialog" aria-label="Close">×</button></div><input type="hidden" name="id" /><div class="form-grid"><label>Date<input type="date" name="date" required /></label><label>Category<select name="category" id="form-category" required></select></label><label>Topic<input name="topic" list="topic-options" placeholder="e.g. Queue" required /><datalist id="topic-options"></datalist></label><label>Status<select name="status" required><option>Learning</option><option>Practiced</option><option>Completed</option></select></label><label>Problems solved<input name="problems" type="number" min="0" value="0" /></label><label>Difficulty<select name="difficulty"><option value="">Not applicable</option><option>Easy</option><option>Medium</option><option>Hard</option></select></label><label>Hours studied<input name="hours" type="number" min="0" step="0.5" value="1" /></label><label>Problem number (optional)<input name="problemNumber" placeholder="e.g. 232" /></label><label class="wide">What did you learn?<input name="learned" placeholder="e.g. Implemented queue using arrays" required /></label><label class="wide">Notes (optional)<textarea name="notes" rows="3" placeholder="Key takeaways, blockers, or a reminder for next time"></textarea></label></div><div class="modal-actions"><button type="button" class="delete-btn" id="delete-entry" hidden>Delete entry</button><button type="submit" class="primary-btn">Save progress</button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
